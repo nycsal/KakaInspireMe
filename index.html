@@ -6,19 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100vw; height: 100vh; padding: 0; margin: 0; overflow: hidden;
       background: radial-gradient(circle, #fff8e1 0%, #ffd54f 100%);
-      box-sizing: border-box;
       font-family: sans-serif;
-      overflow: hidden;
     }
     body {
-      width: 100vw;
-      height: 100vh;
+      width: 100vw; height: 100vh;
+      position: relative;
     }
     .fullscreen-flex {
       display: flex;
@@ -26,160 +20,128 @@
       justify-content: center;
       width: 100vw;
       height: 100vh;
+      position: absolute;
+      top: 0; left: 0;
+      z-index: 1;
     }
     .octagon-btn {
-      width: 60vw;
-      max-width: 600px;
-      min-width: 250px;
+      width: 65vw;
+      max-width: 800px;
+      min-width: 300px;
       aspect-ratio: 1 / 1;
-      background: linear-gradient(135deg, #ffd54f 25%, #ffb300 100%);
+      background: linear-gradient(135deg, #ffd54f 60%, #ffb300 100%);
       color: #6d4c41;
       border: none;
       cursor: pointer;
-      font-size: 4vw;
+      font-size: 5vw;
       font-weight: bold;
       text-align: center;
       line-height: 1.2;
-      box-shadow: 0 12px 50px rgba(0,0,0,0.17);
-      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 18px 80px rgba(0,0,0,0.21);
+      transition: background 0.15s, transform 0.10s;
       clip-path: polygon(
-        30% 2%, 70% 2%, 98% 30%, 98% 69%,
+        30% 2%, 70% 2%, 98% 30%, 98% 70%,
         70% 98%, 30% 98%, 2% 70%, 2% 30%
       );
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0;
       user-select: none;
+      z-index: 2;
     }
-    .octagon-btn:active {
-      background: #ffe082;
-      transform: scale(0.97);
-    }
+    .octagon-btn:active { background: #ffe082; transform: scale(0.97);}
     .octagon-btn-label {
+      font-size: 5vw;
+      letter-spacing: 0.03em;
+      text-align: center;
       width: 100%;
-      font-size: 3vw;
-      letter-spacing: 0.04em;
+      word-break: normal;
     }
-    @media (max-width: 800px) {
-      .octagon-btn {
-        width: 85vw;
-        font-size: 7vw;
-      }
-      .octagon-btn-label {
-        font-size: 7vw;
-      }
+    @media (max-width: 900px) {
+      .octagon-btn, .octagon-btn-label { font-size: 8vw;}
+      .octagon-btn-label { font-size: 9vw;}
     }
-    @media (max-width: 500px) {
-      .octagon-btn {
-        min-width: 160px;
-        font-size: 10vw;
-      }
-      .octagon-btn-label {
-        font-size: 10vw;
-      }
+    @media (max-width: 600px) {
+      .octagon-btn { min-width: 160px; font-size: 11vw; }
+      .octagon-btn-label { font-size: 10vw; }
     }
     .poem-popup {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0,0,0,0.29);
+      background: rgba(0,0,0,0.27);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 9999;
+      z-index: 99;
     }
     .poem-content {
       background: #fffde7;
-      border-radius: 32px;
-      padding: 4vw 4vw 2vw 4vw;
-      width: 90vw;
-      max-width: 860px;
-      min-width: 240px;
-      max-height: 94vh;
+      border-radius: 36px;
+      padding: 6vw 3vw 4vw 3vw;
+      width: 95vw;
+      max-width: 970px;
+      min-width: 200px;
+      max-height: 97vh;
       overflow-y: auto;
-      box-shadow: 0 14px 60px rgba(0,0,0,0.22);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.22);
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+    .poet-name {
+      font-size: 3vw;
+      color: #f57c00;
+      margin-bottom: 3vw;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 1.5px;
+    }
     .poem-original {
-      font-size: 4vw;
+      font-size: 4.5vw;
       color: #7b1fa2;
       direction: rtl;
       font-family: 'Vazirmatn', sans-serif;
       font-weight: bold;
-      line-height: 1.24;
-      margin-bottom: 2vw;
-      margin-top: 0.5em;
+      line-height: 1.25;
+      margin-bottom: 2.5vw;
+      margin-top: 0em;
       text-align: center;
-      letter-spacing: 1px;
+      letter-spacing: 1.3px;
     }
-    .poem-phonetic,
-    .poem-translation {
-      font-size: 2.6vw;
+    .poem-phonetic, .poem-translation {
+      font-size: 3vw;
       color: #5d4037;
-      margin-bottom: 2vw;
+      margin-bottom: 2.2vw;
       text-align: center;
-      line-height: 1.2;
-    }
-    .poet-name {
-      font-size: 2.7vw;
-      color: #f57c00;
-      margin-bottom: 2vw;
-      font-weight: bold;
-      text-align: center;
+      line-height: 1.25;
     }
     .home-btn {
-      margin-top: 1.5em;
-      padding: 2vw 8vw;
+      margin-top: 2.5vw;
+      padding: 2vw 9vw;
       background: #ffd54f;
       border: none;
-      border-radius: 35px;
-      font-size: 2.6vw;
+      border-radius: 36px;
+      font-size: 2.8vw;
       font-weight: 700;
       color: #6d4c41;
       cursor: pointer;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.13);
-      transition: background 0.2s;
+      box-shadow: 0 3px 20px rgba(0,0,0,0.13);
+      transition: background 0.17s;
     }
-    .home-btn:active {
-      background: #ffe082;
+    .home-btn:active { background: #ffe082; }
+    @media (max-width: 600px) {
+      .poem-content { padding: 6vw 2vw 4vw 2vw;}
+      .poem-original {font-size: 7vw;}
+      .poem-phonetic,.poem-translation,.poet-name {font-size: 5vw;}
+      .home-btn { font-size: 4vw; padding: 4vw 13vw;}
     }
-    @media (max-width: 650px) {
-      .poem-content {
-        padding: 4vw 1vw 2vw 1vw;
-      }
-      .poem-original {
-        font-size: 7vw;
-      }
-      .poem-phonetic,
-      .poem-translation,
-      .poet-name {
-        font-size: 5vw;
-      }
-      .home-btn {
-        font-size: 4vw;
-        padding: 3vw 12vw;
-      }
-    }
-    @media (max-width: 450px) {
-      .poem-content {
-        padding: 3vw 0;
-      }
-      .poem-original {
-        font-size: 8vw;
-      }
-      .poem-phonetic,
-      .poem-translation,
-      .poet-name {
-        font-size: 6vw;
-      }
-      .home-btn {
-        font-size: 5vw;
-        padding: 4vw 15vw;
-      }
+    @media (max-width: 400px) {
+      .poem-content {padding: 5vw 1vw 4vw 1vw;}
+      .poem-original { font-size: 8vw; }
+      .poem-phonetic,.poem-translation,.poet-name {font-size: 6vw;}
+      .home-btn { font-size: 5vw; padding: 4vw 15vw;}
     }
   </style>
 </head>
@@ -189,7 +151,6 @@
       <span class="octagon-btn-label">kaka<br>inspire me</span>
     </button>
   </div>
-
   <div class="poem-popup" id="poemPopup" style="display:none">
     <div class="poem-content">
       <div class="poet-name" id="poetName"></div>
@@ -199,40 +160,106 @@
       <button class="home-btn" onclick="closePopup()">Home</button>
     </div>
   </div>
-  <script>
-    const poems = [
-      {
-        original: "بنی آدم اعضای یکدیگرند که در آفرینش ز یک گوهرند",
-        phonetic: "bani ādam a'zāye yek digarand ke dar āfarinesh ze yek goharand",
-        translation: "Human beings are members of one body, created from the same essence.",
-        poet: "Saadi"
-      },
-      {
-        original: "به یاد کسی همیشه در این دل من، نسیم سحر گهی است",
-        phonetic: "be yâd-e kasi hamishe dar in del-e man, nasim-e sahargahi ast",
-        translation: "The remembrance of someone always in my heart, Is like the dawn's breeze.",
-        poet: "Hafez"
-      },
-      {
-        original: "ای بس که نباشیم و جهان خواهد بود، نی نام ز ما و نی نشان خواهد بود",
-        phonetic: "ey bas ke nabāshim o jahān xāhad bud, ni nām ze mā o ni nešān xāhad bud",
-        translation: "So often we will not be, yet the world will remain; no name nor trace from us will that time contain.",
-        poet: "Khayyam"
-      }
-    ];
-    function showPoem() {
-      const idx = Math.floor(Math.random() * poems.length);
-      document.getElementById('poetName').textContent = poems[idx].poet;
-      document.getElementById('poemOriginal').textContent = poems[idx].original;
-      document.getElementById('poemPhonetic').textContent = poems[idx].phonetic;
-      document.getElementById('poemTranslation').textContent = poems[idx].translation;
-      document.getElementById('poemPopup').style.display = 'flex';
-      document.getElementById('main-content').style.opacity = 0.20;
+<script>
+const localPoems = [
+  {
+    poet: "Saadi",
+    original: "بنی آدم اعضای یکدیگرند که در آفرینش ز یک گوهرند",
+    phonetic: "bani ādam a'zāye yek digarand ke dar āfarinesh ze yek goharand",
+    translation: "Human beings are members of one body, created from the same essence."
+  },
+  {
+    poet: "Rumi",
+    original: "ای بس که نباشیم و جهان خواهد بود، نی نام ز ما و نی نشان خواهد بود",
+    phonetic: "ey bas ke nabāshim o jahān xāhad bud, ni nām ze mā o ni nešān xāhad bud",
+    translation: "So often we will not be, yet the world will remain; no name nor trace from us will that time contain."
+  },
+  {
+    poet: "Khayyam",
+    original: "بر لب جوی نشین و گذر عمر ببین\nکاین اشارت ز جهان گذران ما را بس",
+    phonetic: "bar lab-e juy neshin o gozar-e omr bebin\nk'in eshārat ze jahān-e gozaran mā rā bas",
+    translation: "Sit by the stream and watch how life passes by;\nThis indication from the fleeting world will suffice."
+  },
+  {
+    poet: "Hafez",
+    original: "به یاد کسی همیشه در این دل من، نسیم سحر گهی است",
+    phonetic: "be yâd-e kasi hamishe dar in del-e man, nasim-e sahargahi ast",
+    translation: "The remembrance of someone always in my heart, is like the dawn's breeze."
+  }
+];
+let currentCycle = [];
+let shownPoems = new Set();
+
+async function queryPoem() {
+  // Simulate querying a new poem from an external source.
+  // Replace this with a real fetch/AJAX call if you have an API, which should deliver random poems forever.
+  // Here we randomly pick from a bigger list and check for uniqueness.
+
+  // If you have an API, replace below with e.g.:
+  // let resp = await fetch("https://your-poetry-api/poem/random");
+  // let poem = await resp.json();
+
+  // For demo, expand localPoems with a dynamic generator:
+  const bigPool = [
+    ...localPoems,
+    {
+      poet: "Simin Behbahani",
+      original: "بازآ که هنوز بر سر آنم که برآیم\nتا پرده براندازم و کاری بگشایم",
+      phonetic: "bāzā ke hanuz bar sar-e ānam ke barāyam\nta pardeh barandāzam o kāri begoshāyam",
+      translation: "Return, for I am still determined to rise,\nTo lift the curtain and undertake an endeavor."
+    },
+    {
+      poet: "Forough Farrokhzad",
+      original: "من از نهایت شب حرف می زنم\nمن از نهایت تاریکی و از نهایت شب حرف می زنم",
+      phonetic: "man az nehāyat-e shab harf mizanam\nman az nehāyat-e tāriki va az nehāyat-e shab harf mizanam",
+      translation: "I speak of the ends of night,\nI speak of the utmost darkness and the ends of night."
     }
-    function closePopup() {
-      document.getElementById('poemPopup').style.display = 'none';
-      document.getElementById('main-content').style.opacity = 1;
+  ];
+
+  // Make sure the cycle pool includes any new poems that have been added
+  if (currentCycle.length === 0) {
+    // Refill cycle, shuffle
+    const unshown = bigPool.filter(
+      poem => !shownPoems.has(poem.original)
+    );
+    // If all have been shown, reset
+    if (unshown.length === 0) {
+      shownPoems.clear();
+      // Now use all
+      currentCycle = shuffleArray(bigPool.slice());
+    } else {
+      currentCycle = shuffleArray(unshown);
     }
-  </script>
+  }
+
+  const poem = currentCycle.pop();
+  shownPoems.add(poem.original);
+  return poem;
+}
+
+// Fisher-Yates shuffle
+function shuffleArray(array) {
+  let arr = array.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+async function showPoem() {
+  const poem = await queryPoem();
+  document.getElementById('poetName').textContent = poem.poet;
+  document.getElementById('poemOriginal').textContent = poem.original;
+  document.getElementById('poemPhonetic').textContent = poem.phonetic;
+  document.getElementById('poemTranslation').textContent = poem.translation;
+  document.getElementById('poemPopup').style.display = 'flex';
+  document.getElementById('main-content').style.opacity = 0.18;
+}
+function closePopup() {
+  document.getElementById('poemPopup').style.display = 'none';
+  document.getElementById('main-content').style.opacity = 1;
+}
+</script>
 </body>
 </html>
