@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Kaka Inspire Me</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html, body {
       height: 100%;
@@ -10,146 +11,188 @@
       padding: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(circle, #fff8e1 0%, #ffe082 100%);
+      background: radial-gradient(circle, #fff8e1 0%, #ffd54f 100%);
+      box-sizing: border-box;
       font-family: sans-serif;
       overflow: hidden;
     }
-    .centered-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    body {
       width: 100vw;
+      height: 100vh;
     }
-    .brain-btn {
-      width: 230px;
-      height: 230px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ffd54f 50%, #ffb300 100%);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-      border: none;
+    .fullscreen-flex {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.4rem;
+      width: 100vw;
+      height: 100vh;
+    }
+    .octagon-btn {
+      width: 60vw;
+      max-width: 600px;
+      min-width: 250px;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #ffd54f 25%, #ffb300 100%);
       color: #6d4c41;
+      border: none;
       cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-      position: relative;
-      margin: auto;
-    }
-    .brain-btn::before {
-      content: '';
-      position: absolute;
-      left: 12%;
-      top: 14%;
-      width: 80%;
-      height: 70%;
-      border-radius: 50% 45% 45% 50% / 60% 55% 60% 65%;
-      border: 7px solid #ffe082;
-      background: transparent;
-      z-index: 1;
-    }
-    .brain-icon {
-      font-size: 4.2rem;
-      margin-right: 10px;
-    }
-    .brain-text {
-      position: relative;
-      z-index: 2;
+      font-size: 4vw;
       font-weight: bold;
-      font-size: 1.6em;
       text-align: center;
-    }
-    .popup {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.25);
+      line-height: 1.2;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.17);
+      transition: background 0.2s, transform 0.15s;
+      clip-path: polygon(
+        30% 2%, 70% 2%, 98% 30%, 98% 69%,
+        70% 98%, 30% 98%, 2% 70%, 2% 30%
+      );
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      padding: 0;
+      user-select: none;
+    }
+    .octagon-btn:active {
+      background: #ffe082;
+      transform: scale(0.97);
+    }
+    .octagon-btn-label {
+      width: 100%;
+      font-size: 3vw;
+      letter-spacing: 0.04em;
+    }
+    @media (max-width: 800px) {
+      .octagon-btn {
+        width: 85vw;
+        font-size: 7vw;
+      }
+      .octagon-btn-label {
+        font-size: 7vw;
+      }
+    }
+    @media (max-width: 500px) {
+      .octagon-btn {
+        min-width: 160px;
+        font-size: 10vw;
+      }
+      .octagon-btn-label {
+        font-size: 10vw;
+      }
+    }
+    .poem-popup {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.29);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       z-index: 9999;
     }
-    .popup-content {
+    .poem-content {
       background: #fffde7;
       border-radius: 32px;
-      box-shadow: 0 16px 60px rgba(0,0,0,0.19);
-      padding: 40px 38px;
-      max-width: 86vw;
-      min-width: 280px;
-      text-align: center;
+      padding: 4vw 4vw 2vw 4vw;
+      width: 90vw;
+      max-width: 860px;
+      min-width: 240px;
+      max-height: 94vh;
+      overflow-y: auto;
+      box-shadow: 0 14px 60px rgba(0,0,0,0.22);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .poem-original {
-      font-size: 2.2rem;
+      font-size: 4vw;
       color: #7b1fa2;
       direction: rtl;
       font-family: 'Vazirmatn', sans-serif;
-      margin-bottom: 1.1em;
-      margin-top: 0.5em;
       font-weight: bold;
+      line-height: 1.24;
+      margin-bottom: 2vw;
+      margin-top: 0.5em;
+      text-align: center;
       letter-spacing: 1px;
-      line-height: 1.3;
     }
-    .poem-phonetic, .poem-translation {
-      margin-bottom: 1.2em;
-      font-size: 1.45rem;
+    .poem-phonetic,
+    .poem-translation {
+      font-size: 2.6vw;
       color: #5d4037;
+      margin-bottom: 2vw;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .poet-name {
+      font-size: 2.7vw;
+      color: #f57c00;
+      margin-bottom: 2vw;
+      font-weight: bold;
+      text-align: center;
     }
     .home-btn {
-      margin-top: 1.8em;
-      padding: 22px 66px;
+      margin-top: 1.5em;
+      padding: 2vw 8vw;
       background: #ffd54f;
       border: none;
       border-radius: 35px;
-      font-size: 1.45rem;
-      font-weight: 600;
+      font-size: 2.6vw;
+      font-weight: 700;
       color: #6d4c41;
       cursor: pointer;
-      transition: background 0.3s;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.13);
+      transition: background 0.2s;
     }
-    .home-btn:hover {
-      background: #ffb300;
+    .home-btn:active {
+      background: #ffe082;
     }
-    @media (max-width: 599px) {
-      .popup-content {
-        padding: 16px 8px;
-        min-width: unset;
+    @media (max-width: 650px) {
+      .poem-content {
+        padding: 4vw 1vw 2vw 1vw;
       }
       .poem-original {
-        font-size: 1.5rem;
+        font-size: 7vw;
       }
-      .poem-phonetic, .poem-translation {
-        font-size: 1.1rem;
+      .poem-phonetic,
+      .poem-translation,
+      .poet-name {
+        font-size: 5vw;
       }
       .home-btn {
-        padding: 14px 28px;
-        font-size: 1.0rem;
+        font-size: 4vw;
+        padding: 3vw 12vw;
       }
-      .brain-btn {
-        width: 170px;
-        height: 170px;
-        font-size: 1.45rem;
+    }
+    @media (max-width: 450px) {
+      .poem-content {
+        padding: 3vw 0;
       }
-      .brain-icon {
-        font-size: 2.5rem;
+      .poem-original {
+        font-size: 8vw;
       }
-      .brain-text {
-        font-size: 1.2em;
+      .poem-phonetic,
+      .poem-translation,
+      .poet-name {
+        font-size: 6vw;
+      }
+      .home-btn {
+        font-size: 5vw;
+        padding: 4vw 15vw;
       }
     }
   </style>
 </head>
 <body>
-  <div class="centered-container" id="main-content">
-    <button class="brain-btn" onclick="showPoem()">
-      <span class="brain-icon">🧠</span>
-      <span class="brain-text">kaka<br>inspire me</span>
+  <div class="fullscreen-flex" id="main-content">
+    <button class="octagon-btn" onclick="showPoem()">
+      <span class="octagon-btn-label">kaka<br>inspire me</span>
     </button>
   </div>
-  <div class="popup" id="poemPopup" style="display:none">
-    <div class="popup-content">
+
+  <div class="poem-popup" id="poemPopup" style="display:none">
+    <div class="poem-content">
+      <div class="poet-name" id="poetName"></div>
       <div class="poem-original" id="poemOriginal"></div>
       <div class="poem-phonetic" id="poemPhonetic"></div>
       <div class="poem-translation" id="poemTranslation"></div>
@@ -161,26 +204,30 @@
       {
         original: "بنی آدم اعضای یکدیگرند که در آفرینش ز یک گوهرند",
         phonetic: "bani ādam a'zāye yek digarand ke dar āfarinesh ze yek goharand",
-        translation: "Human beings are members of one body, Created from the same essence."
+        translation: "Human beings are members of one body, created from the same essence.",
+        poet: "Saadi"
       },
       {
-        original: "ز خاک درخت و از درخت بار میروید همیشه رو به درخت و زمین بار میدهد",
-        phonetic: "ze xāk derakht o az derakht bār mi-ruyad hamīshe ru be derakht o zamin bār mi-dahad",
-        translation: "From the earth, the tree grows and bears fruit, Always directed toward the tree, the earth gives its bounty."
+        original: "به یاد کسی همیشه در این دل من، نسیم سحر گهی است",
+        phonetic: "be yâd-e kasi hamishe dar in del-e man, nasim-e sahargahi ast",
+        translation: "The remembrance of someone always in my heart, Is like the dawn's breeze.",
+        poet: "Hafez"
       },
       {
         original: "ای بس که نباشیم و جهان خواهد بود، نی نام ز ما و نی نشان خواهد بود",
-        phonetic: "ey bas ke nabāšim o jahān xāhad bud, ni nām ze mā o ni nešān xāhad bud",
-        translation: "So often we will not be, yet the world will remain, There will be no name or trace of us in its domain."
+        phonetic: "ey bas ke nabāshim o jahān xāhad bud, ni nām ze mā o ni nešān xāhad bud",
+        translation: "So often we will not be, yet the world will remain; no name nor trace from us will that time contain.",
+        poet: "Khayyam"
       }
     ];
     function showPoem() {
       const idx = Math.floor(Math.random() * poems.length);
+      document.getElementById('poetName').textContent = poems[idx].poet;
       document.getElementById('poemOriginal').textContent = poems[idx].original;
       document.getElementById('poemPhonetic').textContent = poems[idx].phonetic;
       document.getElementById('poemTranslation').textContent = poems[idx].translation;
       document.getElementById('poemPopup').style.display = 'flex';
-      document.getElementById('main-content').style.opacity = 0.18;
+      document.getElementById('main-content').style.opacity = 0.20;
     }
     function closePopup() {
       document.getElementById('poemPopup').style.display = 'none';
