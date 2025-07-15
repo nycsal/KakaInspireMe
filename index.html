@@ -1,1 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kaka Inspire Me</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #fff8e1 0%, #ffe082 100%);
+      width: 100vw;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+    .centered-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .inspire-btn {
+      padding: 20px 40px;
+      background: #ffd54f;
+      border: none;
+      border-radius: 40px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      font-size: 2rem;
+      color: #6d4c41;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .inspire-btn:hover {
+      background: #ffb300;
+    }
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.35);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .popup-content {
+      background: #fffde7;
+      border-radius: 25px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 30px 35px;
+      text-align: center;
+      max-width: 400px;
+    }
+    .poem-original {
+      font-size: 1.25rem;
+      color: #7b1fa2;
+      font-family: 'Vazirmatn', sans-serif;
+      direction: rtl;
+      margin-bottom: 1.2em;
+      margin-top: 0.5em;
+    }
+    .poem-phonetic, .poem-translation {
+      margin-bottom: 1em;
+      font-size: 1.06em;
+    }
+    .home-btn {
+      margin-top: 1em;
+      padding: 12px 28px;
+      background: #ffd54f;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1em;
+      color: #6d4c41;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .home-btn:hover {
+      background: #ffb300;
+    }
+  </style>
+</head>
+<body>
+  <div class="centered-container" id="main-content">
+    <button class="inspire-btn" onclick="showPoem()">kaka inspire me</button>
+  </div>
+  <div class="popup" id="poemPopup" style="display:none">
+    <div class="popup-content">
+      <div class="poem-original" id="poemOriginal"></div>
+      <div class="poem-phonetic" id="poemPhonetic"></div>
+      <div class="poem-translation" id="poemTranslation"></div>
+      <button class="home-btn" onclick="closePopup()">Home</button>
+    </div>
+  </div>
+  <script>
+    // Example poem data, expand as needed
+    const poems = [
+      {
+        original: "بنی آدم اعضای یکدیگرند که در آفرینش ز یک گوهرند",
+        phonetic: "bani ādam a'zāye yek digarand ke dar āfarinesh ze yek goharand",
+        translation: "Human beings are members of one body, Created from the same essence.[9]"
+      },
+      {
+        original: "ز خاک درخت و از درخت بار میروید همیشه رو به درخت و زمین بار میدهد",
+        phonetic: "ze xāk derakht o az derakht bār mi-ruyad hamīshe ru be derakht o zamin bār mi-dahad",
+        translation: "From the earth, the tree grows and bears fruit, Always directed toward the tree, the earth gives its bounty.[9]"
+      },
+      {
+        original: "ای بس که نباشیم و جهان خواهد بود، نی نام ز ما و نی نشان خواهد بود",
+        phonetic: "ey bas ke nabāšim o jahān xāhad bud, ni nām ze mā o ni nešān xāhad bud",
+        translation: "So often we will not be, yet the world will remain, There will be no name or trace of us in its domain.[9]"
+      }
+    ];
+
+    function showPoem() {
+      const idx = Math.floor(Math.random() * poems.length);
+      document.getElementById('poemOriginal').textContent = poems[idx].original;
+      document.getElementById('poemPhonetic').textContent = poems[idx].phonetic;
+      document.getElementById('poemTranslation').textContent = poems[idx].translation;
+      document.getElementById('poemPopup').style.display = 'flex';
+      document.getElementById('main-content').style.opacity = 0.4;
+    }
+    function closePopup() {
+      document.getElementById('poemPopup').style.display = 'none';
+      document.getElementById('main-content').style.opacity = 1;
+    }
+  </script>
+</body>
+</html>
 
