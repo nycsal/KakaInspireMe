@@ -8,9 +8,44 @@
     html, body {
       width: 100vw; height: 100vh; padding: 0; margin: 0; overflow: hidden;
       background: radial-gradient(circle, #fff8e1 0%, #ffd54f 100%);
-      font-family: sans-serif; touch-action: manipulation;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
     }
-    body { width: 100vw; height: 100vh; position: relative; }
+    body {
+      width: 100vw; height: 100vh; position: relative;
+    }
+    .branding-bar {
+      position: absolute;
+      width: 100vw;
+      top: 5vh;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .branding-text {
+      color: #24A0ED;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      font-weight: 900;
+      font-size: 4.5vw;
+      padding: 0.55em 1em 0.4em 1em;
+      border: 6px solid #ffe600;
+      border-radius: 1.2em;
+      background: #fffde7fa;
+      box-shadow: 0 6px 40px #ffe60040, 0 2px 32px #24A0ED22;
+      letter-spacing: 0.1em;
+      text-shadow: 0 2px 6px #ffe60077, 0 0 2px #fff;
+      pointer-events: auto;
+      transition: box-shadow 0.18s;
+      min-width: 220px;
+      max-width: 92vw;
+      text-align: center;
+      user-select: none;
+    }
+    @media (max-width: 600px) {
+      .branding-text { font-size: 7vw; padding: .44em 0.2em 0.35em 0.2em; border-width: 3px; }
+    }
+
     .fullscreen-flex {
       display: flex;
       align-items: center;
@@ -18,7 +53,8 @@
       width: 100vw;
       height: 100vh;
       position: absolute;
-      top: 0; left: 0; z-index: 1;
+      top: 0; left: 0;
+      z-index: 1;
     }
     .octagon-btn {
       width: 65vw;
@@ -30,117 +66,112 @@
       justify-content: center;
       cursor: pointer;
       user-select: none;
-      /* Octagon shape */
       clip-path: polygon(
         30% 2%, 70% 2%, 98% 30%, 98% 70%,
         70% 98%, 30% 98%, 2% 70%, 2% 30%
       );
-
-      /* Multi-gradient for 3D look */
-      background: 
-        linear-gradient(135deg, #ff5e62 15%, #febb4e 35%, #42e695 60%, #3bb2b8 95%),
-        radial-gradient(circle at 30% 80%, #ffb400 10%, #eca400 55%, transparent 100%);
-
-      box-shadow: 
-        0 0 60px 16px #fff81f44,
-        0 0 90px 44px #42e69599,
-        0 18px 40px 0 #e6394657,
-        0 0 0 22px #ffffff1b, 
-        0 9px 40px 0 #3bb2b877;
-      /* Pulse animation */
-      animation: pulseGlow 1.6s cubic-bezier(.4,0,.6,1) infinite;
+      background: conic-gradient(
+        from 0deg,
+        #fee140 0%,
+        #fa709a 22%,
+        #42e695 48%,
+        #3bb2b8 65%,
+        #fd6e6a 80%,
+        #fcb045 100%
+      ), 
+      linear-gradient(135deg, #ffd54f 10%, #ffb300 90%);
+      box-shadow:
+        0 0 90px 16px #fff8,
+        0 0 100px 54px #42e69588,
+        0 24px 66px 0 #e6394660,
+        0 7px 30px 0 #3bb2b877;
       position: relative;
       z-index: 2;
       transition: filter 0.25s;
+      animation: pulseGlowBlack 1.7s cubic-bezier(.4,0,.6,1) infinite;
+      border: none;
     }
+    .octagon-btn:focus { outline: 2px solid #fa709a; }
     .octagon-btn:hover, .octagon-btn:focus {
-      filter: brightness(1.07) drop-shadow(0 0 30px #fff477cc);
+      filter: brightness(1.08) drop-shadow(0 0 30px #fff47799);
     }
-    /* Pulsing radiant glow */
-    @keyframes pulseGlow {
+    @keyframes pulseGlowBlack {
       0%, 100% {
         transform: scale(1);
         box-shadow:
-          0 0 60px 16px #fff81f44,
-          0 0 90px 44px #42e69599,
-          0 18px 40px 0 #e6394657,
-          0 0 0 22px #ffffff1b, 
+          0 0 90px 16px #fff8,
+          0 0 70px 34px #42e69588,
+          0 18px 50px 0 #e6394657,
+          0 0 0 16px #fee1401b,
           0 9px 40px 0 #3bb2b877;
-        /* Colorful background stays same for more solid look */
       }
-      45% {
-        transform: scale(1.08);
-        box-shadow: 
-          0 0 120px 40px #ffd60099,
-          0 0 100px 70px #42e69588,
-          0 18px 40px 0 #f5674788,
-          0 0 0 42px #ffb4002c,
-          0 9px 60px 0 #00e3d877;
-      }
-      70% {
-        transform: scale(1.13);
+      48% {
+        transform: scale(1.10);
         box-shadow:
-          0 0 190px 90px #ffe54661,
-          0 0 130px 70px #3bb2b8cc,
+          0 0 190px 32px #ffb30087,
+          0 0 100px 65px #42e695a1,
+          0 28px 70px 0 #fa709a50,
+          0 0 0 46px #ffd54f33,
+          0 14px 65px 0 #ffda8b77;
+      }
+      75% {
+        transform: scale(1.16);
+        box-shadow:
+          0 0 130px 46px #ffe546,
+          0 0 130px 70px #3bb2b8e4,
           0 18px 80px 0 #ffcb4770,
-          0 0 0 22px #ffe0824b,
-          0 14px 65px 0 #d1b3ff77;
+          0 0 0 32px #ffe0823b,
+          0 14px 95px 0 #e6e6fa44;
       }
     }
-    /* Inner rainbow "glass" reflection */
     .octagon-btn::before {
       content: "";
       position: absolute;
       z-index: 1;
-      width: 80%; height: 75%;
-      left: 10%; top: 10%;
+      width: 82%; height: 75%;
+      left: 9%; top: 12%;
       pointer-events: none;
-      border-radius: 25%;
+      border-radius: 28%;
       background: linear-gradient(105deg, 
-        rgba(255,255,255, 0.44) 10%,
-        rgba(255,215,99,   0.35) 25%,
-        rgba(88,255,255,   0.15) 64%,
-        rgba(247, 85, 168, 0.28) 91%
+        rgba(255,255,255, 0.52) 13%,
+        rgba(255,215,99,   0.38) 30%,
+        rgba(88,255,255,   0.14) 74%,
+        rgba(247, 85, 168, 0.19) 92%
       );
-      filter: blur(4px) brightness(1.4);
-      opacity: 0.65;
+      filter: blur(6px) brightness(1.3);
+      opacity: 0.56;
       box-shadow:
-        0 0 24px 6px #fff4,
-        0 8px 44px 0 #fff2;
+        0 0 28px 9px #fff2;
     }
     .octagon-btn-label {
       position: relative;
       z-index: 2;
       font-size: 5vw;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       text-align: center;
       width: 100%;
-      font-family: 'Segoe UI', 'B Yekan', sans-serif;
-      background: linear-gradient(90deg, #ffe082 10%, #fa709a 50%, #42e695 90%);
-      color: #6d4c41;
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
       font-weight: bold;
-      text-shadow: 
-        0 2px 8px #fff4,
-        0 1px 2px #febb4eaa,
-        0 4px 14px #ff6f0080,
-        0 2px 12px #63e4da72;
-      filter: drop-shadow(0 0 8px #fff57390);
-      /* Animate text shadow for fun */
-      animation: textglow 2.1s linear infinite alternate;
+      color: #111 !important;
+      text-shadow:
+        0 2px 10px #fff9,
+        0 2px 6px #ffe08e66,
+        0 0px 12px #fff8;
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
+      filter: drop-shadow(0 0 8px #fff57340);
+      animation: textpulseBlack 1.7s cubic-bezier(.4,0,.6,1) infinite alternate;
     }
-    @keyframes textglow {
-      to { text-shadow: 
-        0 2px 18px #fff9,
-        0 2px 8px  #febb4e99,
-        0 8px 34px #42e695,
-        0 2px 16px #f5674790;
+    @keyframes textpulseBlack {
+      to { 
+        text-shadow:
+          0 4px 18px #ffd54f99,
+          0 2px 18px #fffd,
+          0 5px 18px #fff4;
       }
     }
 
-    /* Responsive adjustments */
     @media (max-width: 900px) {
       .octagon-btn, .octagon-btn-label { font-size: 7vw;}
       .octagon-btn-label { font-size: 8vw;}
@@ -149,7 +180,7 @@
       .octagon-btn { min-width: 140px; font-size: 11vw; }
       .octagon-btn-label { font-size: 11vw; }
     }
-    /* Output Poem Popup (unchanged per user request) */
+
     .poem-popup {
       position: fixed;
       inset: 0;
@@ -197,7 +228,7 @@
     }
     .poem-phonetic, .poem-translation {
       font-size: 3vw;
-      color: #5d4037;
+      color: #111;
       margin-bottom: 2.2vw;
       text-align: center;
       line-height: 1.25;
@@ -231,9 +262,12 @@
   </style>
 </head>
 <body>
+  <div class="branding-bar">
+    <span class="branding-text">KakaReza</span>
+  </div>
   <div class="fullscreen-flex" id="main-content">
     <button class="octagon-btn" onclick="showPoem()">
-      <span class="octagon-btn-label">kaka<br>inspire me</span>
+      <span class="octagon-btn-label">Inspire Me</span>
     </button>
   </div>
   <div class="poem-popup" id="poemPopup" style="display:none">
@@ -288,7 +322,6 @@ let currentCycle = [];
 let shownPoems = new Set();
 
 async function queryPoem() {
-  // Simulate querying a new poem, always pick randomly from list, cycle only after all shown
   const bigPool = localPoems;
   if (currentCycle.length === 0) {
     const unshown = bigPool.filter(poem => !shownPoems.has(poem.original));
